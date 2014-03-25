@@ -4,6 +4,7 @@
 package fr.conception.beans;
 
 import java.util.Date;
+import java.util.Observable;
 
 import fr.conception.enumeration.Etat_Enchere;
 
@@ -11,15 +12,21 @@ import fr.conception.enumeration.Etat_Enchere;
  * @author 'Nes
  *
  */
-public class EnchereBean {
+public class EnchereBean  extends Observable{
 
 	private String description;
 	private double prixMinimum;
 	private double prixDeReserve;
-	private static int identifiant;
+	private int identifiant;
 	private Etat_Enchere etat;
 	private Date dateLimite;
+	private boolean enchereFini;
 	
+	public EnchereBean(String description, Date dateLimite)
+	{
+		this.description = description;
+		this.dateLimite = dateLimite;
+	}
 	/**
 	 * @return the description
 	 */
@@ -60,13 +67,13 @@ public class EnchereBean {
 	 * @return the identifiant
 	 */
 	public int getIdentifiant() {
-		return EnchereBean.identifiant;
+		return this.identifiant;
 	}
 	/**
 	 * @param identifiant the identifiant to set
 	 */
-	public static void setIdentifiant() {
-		EnchereBean.identifiant++;
+	public void setIdentifiant(int identifiant) {
+		this.identifiant = identifiant;
 	}
 	/**
 	 * @return the etat
@@ -91,6 +98,19 @@ public class EnchereBean {
 	 */
 	public void setDateLimite(Date dateLimite) {
 		this.dateLimite = dateLimite;
+	}
+	
+	/**
+	 * @return the enchereFini
+	 */
+	public boolean isEnchereFini() {
+		return enchereFini;
+	}
+	/**
+	 * @param enchereFini the enchereFini to set
+	 */
+	public void setEnchereFini(boolean enchereFini) {
+		this.enchereFini = enchereFini;
 	}
 	
 	

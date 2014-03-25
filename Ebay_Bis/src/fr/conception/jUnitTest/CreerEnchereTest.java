@@ -30,7 +30,7 @@ public class CreerEnchereTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		vendeur = new Utilisateur();	
+		vendeur = new Utilisateur("login","nom","prenom");	
 	}
 
 	/**
@@ -42,11 +42,8 @@ public class CreerEnchereTest {
 
 	@Test
 	public void test() {
-		Enchere enchere = new Enchere();
+		Enchere enchere = new Enchere("Une description...",new Date("23/12/2014"));
 		
-		enchere.setDescription("Une description...");
-		enchere.setIdentifiant();
-		enchere.setDateLimite(new Date("23/12/2014"));
 		enchere.setPrixMinimum(12.36);
 		
 		assertEquals(true,vendeur.creerEnchere(enchere));
