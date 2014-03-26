@@ -39,7 +39,14 @@ public class Enchere extends EnchereBean implements Observer{
 	}
 	
 	public boolean prixDeReserveAtteint(double prixOffre) {
-		return (prixOffre >= getPrixDeReserve());
+		if (prixOffre >= getPrixDeReserve())
+		{
+			this.setChanged();
+			this.notifyObservers(this);
+			return true;
+		}
+		else return false;
+		
 	}
 
 	@Override

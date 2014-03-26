@@ -64,15 +64,15 @@ public class AlertesTest {
 		assertEquals(nbAlerte+1,acheteur.getListeAlerte().size());
 	}
 
-	/*@Test
+	@Test
 	public void testPrixReserveAtteintAlerte()
 	{
-		AlertBean alerte = new AlertBean(Type_Alerte.PRIX_RESERVE_ATTEINT,enchere.getIdentifiant());
-		acheteur.setListeAlerte(alerte);
+		int nbAlerte = acheteur.getListeAlerte().size();
+		enchere.addObserver(acheteur);
 		enchere.setPrixDeReserve(15.3);
-		acheteur.emettreOffre(enchere, 16);
-		assertEquals(true,acheteur.isAlerteDeclenchee());
-	}*/
+		acheteur.emettreOffre(vendeur,enchere, 16);
+		assertEquals(nbAlerte+1,acheteur.getListeAlerte().size());
+	}
 	
 	@Test
 	public void testDesactiverTouteAlertes()

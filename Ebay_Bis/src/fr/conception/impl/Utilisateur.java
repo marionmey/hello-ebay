@@ -3,7 +3,6 @@
  */
 package fr.conception.impl;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
@@ -33,6 +32,7 @@ public class Utilisateur extends UtilisateurBean implements Vendeur,Acheteur {
 		if (offre.isInfoRempli()) 
 			{
 				this.setOffres(offre);
+				vendeur.addOffres(offre,enchere);
 				this.setChanged();
 				this.notifyObservers(offre);
 				return true;
@@ -46,14 +46,16 @@ public class Utilisateur extends UtilisateurBean implements Vendeur,Acheteur {
 		if (obj instanceof Enchere)
 		{
 			Enchere enchere = (Enchere) obj;
-			this.setAlertes(new AlertBean(Type_Alerte.ENCHERE_ANNULEE,enchere.getIdentifiant()));
+			if (enchere.getEtat() == Etat_Enchere.ANNULEE) this.setAlertes(new AlertBean(Type_Alerte.ENCHERE_ANNULEE,enchere.getIdentifiant()));
+			else this.setAlertes(new AlertBean(Type_Alerte.PRIX_RESERVE_ATTEINT,enchere.getIdentifiant()));
 		}
 		else if (obj instanceof Offre)
 		{
 			Offre offre = (Offre) obj;
 			this.setAlertes(new AlertBean(Type_Alerte.NOUVELLE_OFFRE, offre.getEnchereId()));
 		}
-
+		
+		
 	}
 	
 	@Override
@@ -74,7 +76,7 @@ public class Utilisateur extends UtilisateurBean implements Vendeur,Acheteur {
 
 	@Override
 	public boolean publierEnchere(Enchere enchere) {
-		// TODO Auto-generated method stub
+		
 		List<Enchere> liste = this.getEncheres();
 		Iterator<Enchere> iterator = liste.iterator();
 		while (iterator.hasNext()) {
@@ -91,7 +93,6 @@ public class Utilisateur extends UtilisateurBean implements Vendeur,Acheteur {
 	public boolean annulerEnchere(Enchere enchere) {
 		List<Enchere> liste = this.getEncheres();
 		int oldSize = liste.size();
-		if (oldSize == 1) System.out.println(liste.get(0).getDescription());
 		
 		Iterator<Enchere> iterator = liste.iterator();
 		while (iterator.hasNext()) {
@@ -163,6 +164,12 @@ public class Utilisateur extends UtilisateurBean implements Vendeur,Acheteur {
 		if (posAlerte != -1) this.getAlertes().get(posAlerte).setActive(false);
 		else return false;
 		return true;
+	}
+
+	@Override
+	public void addOffres(Offre offre, Enchere enchere) {
+		this.setOffres(offre);
+		enchere.prixDeReserveAtteint(offre.getPrix());
 	}
 
 
