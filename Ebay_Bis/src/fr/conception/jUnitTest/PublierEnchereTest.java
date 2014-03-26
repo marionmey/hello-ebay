@@ -31,12 +31,9 @@ public class PublierEnchereTest {
 	@Before
 	public void setUp() throws Exception {
 		// Creation de l'enchere test
-		vendeur = new Utilisateur();
-		enchere  = new Enchere();
+		vendeur = new Utilisateur("login","nom","prenom");
+		enchere  = new Enchere("Une description...",new Date("21/12/2014"));
 				
-		enchere.setDescription("Une description...");
-		enchere.setIdentifiant();
-		enchere.setDateLimite(new Date("21/12/2014"));
 		enchere.setPrixMinimum(12.36);
 				
 		vendeur.creerEnchere(enchere);

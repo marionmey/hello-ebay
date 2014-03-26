@@ -29,7 +29,7 @@ public class ContenuEnchereTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		enchere1 = new Enchere();
+		enchere1 = new Enchere("desc",new Date("01/02/2014"));
 	}
 
 	/**
@@ -42,9 +42,6 @@ public class ContenuEnchereTest {
 	@Test
 	public void testInformationImportanteRempli()
 	{
-		enchere1.setDescription("blabla");
-		enchere1.setIdentifiant();
-		enchere1.setDateLimite(new Date("21/12/2014"));
 		assertEquals(true,enchere1.infoImpRempli());
 		
 	}

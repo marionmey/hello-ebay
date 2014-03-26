@@ -3,20 +3,38 @@
  */
 package fr.conception.beans;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Observable;
 
+import fr.conception.impl.Enchere;
 import fr.conception.impl.Offre;
+import fr.conception.beans.OffreBean;
 
 /**
  * @author 'Nes
  *
  */
-public class UtilisateurBean {
+public class UtilisateurBean extends Observable{
 
 	private String nom;
 	private String prenom;
 	private String login;
 	private List<Offre> offres;
+	private List<Enchere> encheres;
+	private List<AlertBean> alertes;
+	
+	public UtilisateurBean(String login, String nom, String prenom)
+	{
+		this.nom = nom;
+		this.prenom = prenom;
+		this.login = login;
+		encheres = new ArrayList<Enchere>();
+		offres = new ArrayList<Offre>();
+		alertes = new ArrayList<AlertBean>();
+	}
 	/**
 	 * @return the nom
 	 */
@@ -62,7 +80,32 @@ public class UtilisateurBean {
 	/**
 	 * @param offres the offres to set
 	 */
-	public void setOffres(List<Offre> offres) {
-		this.offres = offres;
+	public void setOffres(Offre offre) {
+		this.offres.add(offre);
 	}
+	/**
+	 * @return the encheres
+	 */
+	public List<Enchere> getEncheres() {
+		return encheres;
+	}
+	/**
+	 * @param encheres the encheres to set
+	 */
+	public void setEncheres(List<Enchere> encheres) {
+		this.encheres = encheres;
+	}
+	/**
+	 * @return the alertes
+	 */
+	public List<AlertBean> getAlertes() {
+		return alertes;
+	}
+	/**
+	 * @param alertes the alertes to set
+	 */
+	public void setAlertes(AlertBean alerte) {
+		this.alertes.add(alerte);
+	}
+
 }
