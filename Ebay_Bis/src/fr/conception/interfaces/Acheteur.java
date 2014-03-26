@@ -17,8 +17,6 @@ import fr.conception.impl.Enchere;
  */
 public interface Acheteur extends Observer{
 
-	public boolean emettreOffre(Enchere enchere, double prix);
-	public Etat_PrixReserve prixReserveEstAtteint(Enchere enchere);
 	public Etat_Enchere lireEtat(Enchere enchere1);
 	public boolean peutEmettreOffre(String vendeur);
 	public List<AlertBean> getListeAlerte();
@@ -27,4 +25,6 @@ public interface Acheteur extends Observer{
 	public void desactiverAllalertes();
 	public boolean allAlertesAreDesactivate();
 	public boolean desactiverAlerte(AlertBean alerte);
+	boolean emettreOffre(Vendeur vendeur, Enchere enchere, double prix);
+	
 }

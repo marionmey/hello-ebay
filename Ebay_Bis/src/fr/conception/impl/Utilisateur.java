@@ -22,17 +22,14 @@ import fr.conception.interfaces.Vendeur;
  */
 public class Utilisateur extends UtilisateurBean implements Vendeur,Acheteur {
 	
-	private ArrayList<Enchere> liste = new ArrayList<Enchere>();
-	
 	public Utilisateur(String login, String nom, String prenom) {
 		super(login, nom, prenom);
 	}
 
 	@Override
-	public boolean emettreOffre(Enchere enchere, double prix) {
+	public boolean emettreOffre(Vendeur vendeur,Enchere enchere, double prix) {
 		Offre offre = new Offre(enchere.getIdentifiant());
 		offre.setPrix(prix);
-		this.setOffres(offre);
 		if (offre.isInfoRempli()) 
 			{
 				this.setOffres(offre);
@@ -61,14 +58,14 @@ public class Utilisateur extends UtilisateurBean implements Vendeur,Acheteur {
 	
 	@Override
 	public boolean creerEnchere(Enchere enchere) {
-		// TODO Auto-generated method stub
+		List<Enchere> liste = this.getEncheres();
 		int oldSize = liste.size();
 		
 		enchere.setEtat(Etat_Enchere.CREEE);
 		if(enchere.infoImpRempli())	liste.add(enchere);
 		
 		int newSize = liste.size();
-		
+		EnchereCreee.addEnchere(enchere, this.getLogin());
 		if( (oldSize < newSize)
 			&& (liste.get(liste.size()-1).getEtat() == Etat_Enchere.CREEE)) 
 				return true;
@@ -78,7 +75,7 @@ public class Utilisateur extends UtilisateurBean implements Vendeur,Acheteur {
 	@Override
 	public boolean publierEnchere(Enchere enchere) {
 		// TODO Auto-generated method stub
-		
+		List<Enchere> liste = this.getEncheres();
 		Iterator<Enchere> iterator = liste.iterator();
 		while (iterator.hasNext()) {
 		    Enchere e = iterator.next();
@@ -91,15 +88,8 @@ public class Utilisateur extends UtilisateurBean implements Vendeur,Acheteur {
 	}
 
 	@Override
-	public Etat_PrixReserve prixReserveEstAtteint(Enchere enchere) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public boolean annulerEnchere(Enchere enchere) {
-		// TODO Auto-generated method stub
-		
+		List<Enchere> liste = this.getEncheres();
 		int oldSize = liste.size();
 		if (oldSize == 1) System.out.println(liste.get(0).getDescription());
 		
@@ -111,7 +101,6 @@ public class Utilisateur extends UtilisateurBean implements Vendeur,Acheteur {
 		    }
 		}
 		int newSize = liste.size();
-		if (oldSize == 1) System.out.println("\n nvelle taille: " + newSize);
 		
 		if(newSize<oldSize) return true;
 		else return false;

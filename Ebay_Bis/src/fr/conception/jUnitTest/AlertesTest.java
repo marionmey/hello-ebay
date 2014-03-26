@@ -51,7 +51,7 @@ public class AlertesTest {
 
 		int nbAlerte = vendeur.getListeAlerte().size();
 		acheteur.ajoutObserver(vendeur);
-		acheteur.emettreOffre(enchere, 12.6);
+		acheteur.emettreOffre(vendeur,enchere, 12.6);
 		assertEquals(nbAlerte+1,vendeur.getListeAlerte().size());
 	}
 	

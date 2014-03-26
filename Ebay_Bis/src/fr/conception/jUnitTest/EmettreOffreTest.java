@@ -59,6 +59,6 @@ public class EmettreOffreTest {
 	public void testEmettreOffre()
 	{
 		double prix = 10.6;
-		assertEquals(true,acheteur.emettreOffre(enchere,prix));
+		assertEquals(true,acheteur.emettreOffre(vendeur,enchere,prix));
 	}
 }
